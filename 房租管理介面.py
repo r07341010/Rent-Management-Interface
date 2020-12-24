@@ -35,7 +35,7 @@ def CalculateRent():
     rent = df.loc[roomindex, '使用租金']
     other_charge = parking + add_person
     if parking + add_person == 0 :
-        pass
+        other = ''
     elif parking > 0 and add_person == 0 :
         other = '3. 停車費用為'+str(parking)+'元。\n'
     elif parking == 0 and add_person > 0 :
@@ -125,7 +125,7 @@ def ConfirmPay():
     for i in range(5):
         df2column = '繳費日期' + str(i + 1)
         df2columnp = '費用' + str(i + 1)
-        if str(df2.loc[roomindex, df2column]) != '':
+        if str(df2.loc[roomindex, df2column]) != 'nan':
             trade1_label = tk.Label(window, text=str(df2.loc[roomindex, df2column]), bg="white", fg="black", font=fontStyle1)
             trade1_label.grid(column=7, row=4 + i, ipadx=5, pady=5, sticky='W')
             trade2_label = tk.Label(window, text=str(int(df2.loc[roomindex, df2columnp])) + ' 元', bg="white", fg="black", font=fontStyle1)
@@ -156,7 +156,7 @@ list_53 = [0,1,2,3,4,5,6,7,8,9,10,11,12]
 room_list = tuple(df.房別)
 
 global roomindex
-roomindex = 1  # 之後改成前一個介面選的房號
+roomindex = 18  # 之後改成前一個介面選的房號
 '''房客資料'''
 title_label = tk.Label(window, text=str(df.loc[roomindex, '房別']) + '房客資料', bg="white", fg="grey", font=fontStyle2)  # 之後改成前一個介面選的房號
 title_label.grid(column=1, row=3, ipadx=5, pady=5, sticky='W', columnspan=2)
@@ -278,12 +278,13 @@ header2_label.grid(column=7, row=3, ipadx=5, pady=5, sticky='W', columnspan=2)
 for i in range(5):
     df2column = '繳費日期' + str(i + 1)
     df2columnp = '費用' + str(i + 1)
-    if str(df2.loc[roomindex, df2column]) != '':
+    if str(df2.loc[roomindex, df2column]) != 'nan':
         trade1_label = tk.Label(window, text=str(df2.loc[roomindex, df2column]), bg="white", fg="black", font=fontStyle1)
         trade1_label.grid(column=7, row=4 + i, ipadx=5, pady=5, sticky='W')
         trade2_label = tk.Label(window, text=str(int(df2.loc[roomindex, df2columnp])) + ' 元', bg="white", fg="black", font=fontStyle1)
         trade2_label.grid(column=8, row=4 + i, ipadx=5, pady=5, sticky='W')
     else:
-        break
+        trade1_label = tk.Label(window, text='無資料', bg="white", fg="black", font=fontStyle1)
+        trade1_label.grid(column=7, row=4 + i, ipadx=5, pady=5, sticky='W')
 
 window.mainloop()
