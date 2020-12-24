@@ -25,7 +25,8 @@ window.geometry('800x600')
 window.configure(background='white')
 
 def CalculateRent():
-    time = time_entry.get()
+    global pay
+    time = date_label.cget('text').split('-')[1].lstrip('0') + '月'
     previous = float(previous_entry.get())
     month = float(month_entry.get())
     power = round(month - previous, 2)
@@ -108,10 +109,13 @@ def ConfirmPay():
         if i > 1:
             curcolumn = '繳費日期' + str(i)
             forecolumn = '繳費日期' + str(i - 1)
+            curcolumnp = '費用' + str(i)
+            forecolumnp = '費用' + str(i - 1)
             df2.loc[roomindex, curcolumn] = df2.loc[roomindex, forecolumn]
+            df2.loc[roomindex, curcolumnp] = df2.loc[roomindex, forecolumnp]
         if i == 1:
             df2.loc[roomindex, '繳費日期1'] = date_label.cget('text')
-
+            df2.loc[roomindex, '費用1'] = pay
     tmpdf2 = pd.DataFrame(df2)
     tmpdf2.to_csv(calculate_file_path2, encoding='utf-8-sig', index=False)
     df2 = pd.read_csv(calculate_file_path2, encoding='utf-8')
@@ -119,6 +123,16 @@ def ConfirmPay():
     # 更改前端
     inf8_label.configure(text=str(list(df2.繳費狀態)[roomindex]), bg="white",
                          fg="red" if str(list(df2.繳費狀態)[roomindex]) == '未繳' else 'green', font=fontStyle1)
+    for i in range(5):
+        df2column = '繳費日期' + str(i + 1)
+        df2columnp = '費用' + str(i + 1)
+        if str(df2.loc[roomindex, df2column]) != '':
+            trade1_label = tk.Label(window, text=str(df2.loc[roomindex, df2column]), bg="white", fg="black", font=fontStyle1)
+            trade1_label.grid(column=7, row=4 + i, ipadx=5, pady=5, sticky='W')
+            trade2_label = tk.Label(window, text=str(int(df2.loc[roomindex, df2columnp])) + ' 元', bg="white", fg="black", font=fontStyle1)
+            trade2_label.grid(column=8, row=4 + i, ipadx=5, pady=5, sticky='W')
+        else:
+            break
 
 def Date():  # 這個函式首頁也可以用
     global date_label
@@ -131,8 +145,6 @@ def Date():  # 這個函式首頁也可以用
 
 list_53 = [0,1,2,3,4,5,6,7,8,9,10,11,12]
 room_list = tuple(df.房別)
-
-'''滾輪'''
 
 global roomindex
 roomindex = 1  # 之後改成前一個介面選的房號
@@ -198,7 +210,7 @@ add_entry.grid(column=3, row=11, ipadx=5, pady=5, sticky='W', columnspan=2)
 
 # 更改資料
 changebtt1 = ttk.Button(window, text="更改資料", command=ChangeRent, width=7)
-changebtt1.grid(column=5, row=11, ipadx=5, pady=5)
+changebtt1.grid(column=4, row=11, ipadx=5, pady=5)
 
 # 繳費狀態
 title8_label = tk.Label(window, text='繳費狀態：', bg="white", fg="black", font=fontStyle1)
@@ -207,58 +219,58 @@ inf8_label = tk.Label(window, text=str(list(df2.繳費狀態)[roomindex]), bg="w
                       fg="red" if str(list(df2.繳費狀態)[roomindex]) == '未繳' else 'green', font=fontStyle1)
 inf8_label.grid(column=2, row=4, ipadx=5, pady=5, sticky='W')
 
-'''確認繳房租'''
-header2_label = tk.Label(window, text='繳費確認', bg="white", fg="grey", font=fontStyle2)
-header2_label.grid(column=1, row=13, ipadx=5, pady=5, sticky='W')
-
-datebtt = ttk.Button(window, text="選取日期", width=8, command=Date)
-datebtt.grid(column=1, row=14, ipadx=5, pady=5)
-date_label = tk.Label(window, text='', bg="white", fg="black", font=fontStyle1)
-date_label.grid(column=2, row=14, ipadx=5, pady=5)
-confirmbtt = ttk.Button(window, text="確認繳費", width=8, command=ConfirmPay)
-confirmbtt.grid(column=3, row=14, ipadx=5, pady=5, sticky='W')
-
-
 '''計算房租介面'''
 # 介面名稱
-header_label = tk.Label(window, text='計算房租介面', bg="white", fg="grey", font=fontStyle2)
-header_label.grid(column=1, row=15, ipadx=5, pady=5, sticky='W')
+header_label = tk.Label(window, text='繳費', bg="white", fg="grey", font=fontStyle2)
+header_label.grid(column=1, row=12, ipadx=5, pady=5, sticky='W')
 
-# 第二列為選擇房號
-# # room_frame = tk.Frame(window)
-room_label = tk.Label(window, text='房號：',bg="white", fg="black", font=fontStyle1)
-room_label.grid(column=1, row=16, ipadx=5, pady=5)
-room_label = tk.Label(window, text=df.loc[roomindex, '房別'],bg="white", fg="black", font=fontStyle1)
-room_label.grid(column=2, row=16, ipadx=5, pady=5)
+# 選取日期
+datebtt = ttk.Button(window, text="選取日期", width=8, command=Date)
+datebtt.grid(column=1, row=13, ipadx=5, pady=5)
+date_label = tk.Label(window, text='', bg="white", fg="black", font=fontStyle1)
+date_label.grid(column=2, row=13, ipadx=5, pady=5)
 
-
-# 第三列為時間
-time_label = tk.Label(window, text='時間：',bg="white", fg="black", font=fontStyle1)
-time_label.grid(column=1, row=17, ipadx=5, pady=5)
-time_frame = tk.Frame(window)
-time_entry = tk.Entry(window, width=10)
-time_entry.grid(column=2, row=17, ipadx=5, pady=5)
-
-# 第四列為前一月份電錶度數
+# 前一月份電錶度數
 previous_label = tk.Label(window, text='前月電錶顯示(度)：',bg="white", fg="black", font=fontStyle1)
-previous_label.grid(column=1, row=18, ipadx=5, pady=5)
+previous_label.grid(column=1, row=14, ipadx=5, pady=5)
 previous_frame = tk.Frame(window)
 previous_entry = tk.Entry(window, width=10)
-previous_entry.grid(column=2, row=18, ipadx=5, pady=5)
+previous_entry.grid(column=2, row=14, ipadx=5, pady=5)
 
-# 第五列為本月份電錶度數
+# 本月份電錶度數
 month_label = tk.Label(window, text='本月電錶顯示(度)：',bg="white", fg="black", font=fontStyle1)
-month_label.grid(column=1, row=19, ipadx=5, pady=5)
+month_label.grid(column=1, row=15, ipadx=5, pady=5)
 month_frame = tk.Frame(window)
 month_entry = tk.Entry(window, width=10)
-month_entry.grid(column=2, row=19, ipadx=5, pady=5)
+month_entry.grid(column=2, row=15, ipadx=5, pady=5)
 
-# 第六列為計算按鈕
+# 計算按鈕
 calculate_btn = tk.Button(window, text='計算本月房租', command=CalculateRent, fg="black", font=fontStyle1)
-calculate_btn.grid(column=3, row=19, ipadx=5, pady=5)
+calculate_btn.grid(column=3, row=15, ipadx=5, pady=5)
 
-# 第七列為結果顯示窗格
+# 確認繳費按鈕
+confirmbtt = ttk.Button(window, text="確認繳費", width=8, command=ConfirmPay)
+confirmbtt.grid(column=4, row=15, ipadx=5, pady=5, sticky='W')
+
+# 為結果顯示窗格
 result_label = tk.Label(window, font=fontStyle1)
-result_label.grid(column=1, row=20, ipadx=5, pady=5, rowspan=5, columnspan=7, sticky='W')
+result_label.grid(column=1, row=16, ipadx=5, pady=5, rowspan=5, columnspan=7, sticky='W')
+
+'''前五筆交易資料'''
+# 介面名稱
+header2_label = tk.Label(window, text='過去五筆交易紀錄', bg="white", fg="grey", font=fontStyle2)
+header2_label.grid(column=7, row=3, ipadx=5, pady=5, sticky='W', columnspan=2)
+
+# 交易紀錄
+for i in range(5):
+    df2column = '繳費日期' + str(i + 1)
+    df2columnp = '費用' + str(i + 1)
+    if str(df2.loc[roomindex, df2column]) != '':
+        trade1_label = tk.Label(window, text=str(df2.loc[roomindex, df2column]), bg="white", fg="black", font=fontStyle1)
+        trade1_label.grid(column=7, row=4 + i, ipadx=5, pady=5, sticky='W')
+        trade2_label = tk.Label(window, text=str(int(df2.loc[roomindex, df2columnp])) + ' 元', bg="white", fg="black", font=fontStyle1)
+        trade2_label.grid(column=8, row=4 + i, ipadx=5, pady=5, sticky='W')
+    else:
+        break
 
 window.mainloop()
