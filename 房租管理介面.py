@@ -26,7 +26,7 @@ window.configure(background='white')
 
 def CalculateRent():
     global pay
-    time = date_label.cget('text').split('-')[1].lstrip('0') + '月'
+    time = date_label.cget('text').split('/')[1].lstrip('0') + '月'
     previous = float(previous_entry.get())
     month = float(month_entry.get())
     power = round(month - previous, 2)
@@ -102,7 +102,6 @@ def ChangeRent():
 
 def ConfirmPay():
     global df2
-    # 更改後端
     df2.loc[roomindex, '繳費狀態'] = '已繳'
     # 日期增加
     for i in range(5, 0, -1):
@@ -134,10 +133,20 @@ def ConfirmPay():
         else:
             break
 
+def ResetPay():
+    global df2
+    if df2.loc[roomindex, '繳費狀態'] == '已繳':
+        df2.loc[roomindex, '繳費狀態'] = '未繳'
+        inf8_label.configure(text='未繳', bg="white", fg="red", font=fontStyle1)
+        # 更改後端
+        tmpdf2 = pd.DataFrame(df2)
+        tmpdf2.to_csv(calculate_file_path2, encoding='utf-8-sig', index=False)
+        df2 = pd.read_csv(calculate_file_path2, encoding='utf-8')
+
 def Date():  # 這個函式首頁也可以用
     global date_label
     def ChooseDate():
-        date_label.configure(text=cal.selection_get())
+        date_label.configure(text=str(cal.selection_get()).replace('-', '/'))
     top = tk.Toplevel(window)
     cal = Calendar(top, selectmode='day', year=2020, month=12, day=25)
     cal.pack(fill="both", expand=True)
@@ -218,6 +227,10 @@ title8_label.grid(column=1, row=4, ipadx=5, pady=5)
 inf8_label = tk.Label(window, text=str(list(df2.繳費狀態)[roomindex]), bg="white",
                       fg="red" if str(list(df2.繳費狀態)[roomindex]) == '未繳' else 'green', font=fontStyle1)
 inf8_label.grid(column=2, row=4, ipadx=5, pady=5, sticky='W')
+
+# 重設繳費狀態
+resetbtt = ttk.Button(window, text="重設", width=7, command=ResetPay)
+resetbtt.grid(column=3, row=4, ipadx=5, pady=5, sticky='W')
 
 '''計算房租介面'''
 # 介面名稱
