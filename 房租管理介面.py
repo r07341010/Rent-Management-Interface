@@ -156,6 +156,8 @@ def ChooseRoom():
             # 更改前端
             inf8_label.configure(text=str(list(df2.繳費狀態)[roomindex]), bg="white",
                                  fg="red" if str(list(df2.繳費狀態)[roomindex]) == '未繳' else 'green', font=fontStyle1)
+            result_label.configure(text='')
+            
             for i in range(5):
                 df2column = '繳費日期' + str(i + 1)
                 df2columnp = '費用' + str(i + 1)
