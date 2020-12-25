@@ -11,8 +11,8 @@ import tkinter.font as tkFont
 import pandas as pd
 from tkcalendar import Calendar
 
-calculate_file_path = r'/Users/apple/Desktop/github_final/Rent-Management-Interface/房租計算表.csv'#'C:\\Users\\johnc\\Desktop\\房租計算表.csv'
-calculate_file_path2 = r'/Users/apple/Desktop/github_final/Rent-Management-Interface/收租明細表.csv'#'C:\\Users\\johnc\\Desktop\\收租明細表.csv'
+calculate_file_path = 'C:\\Users\\johnc\\Desktop\\房租計算表.csv'
+calculate_file_path2 = 'C:\\Users\\johnc\\Desktop\\收租明細表.csv'
 
 df = pd.read_csv(calculate_file_path, encoding='utf-8')
 df2 = pd.read_csv(calculate_file_path2, encoding='utf-8')
@@ -191,7 +191,7 @@ def ChooseRoom():
         # 身分證字號
         title3_label = tk.Label(window, text='身分證字號：', bg="white", fg="black", font=fontStyle1)
         title3_label.grid(column=1, row=7, ipadx=5, pady=5)
-        inf3_label = tk.Label(window, text=list(df.身分證字號)[roomindex].strip(), bg="white", fg="black", font=fontStyle1)
+        inf3_label = tk.Label(window, text=list(df.身分證字號)[roomindex].lstrip(' '), bg="white", fg="black", font=fontStyle1)
         inf3_label.grid(column=2, row=7, ipadx=5, pady=5, sticky='W')
         id_entry = tk.Entry(window, width=12)
         id_entry.grid(column=3, row=7, ipadx=5, pady=5, sticky='W', columnspan=2)
