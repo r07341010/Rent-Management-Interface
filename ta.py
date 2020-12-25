@@ -3,7 +3,8 @@ from tkinter import ttk  # 导入ttk模块，因为下拉菜单控件在ttk中
 import tkinter.font as tkFont
 import pandas as pd
 import datetime
-df = pd.read_csv(r'C:\Users\user\Documents\GitHub\Rent-Management-Interface\房租計算表.csv')
+#df = pd.read_csv(r'C:\Users\user\Documents\GitHub\Rent-Management-Interface\房租計算表.csv')
+df = pd.read_csv(r'/Users/apple/Desktop/github_final/Rent-Management-Interface/房租計算表.csv')
 window = tk.Tk()
 fontStyle = tkFont.Font(size=20)
 window.title('房租管理介面')
@@ -75,6 +76,7 @@ header_label.grid(column=1, row=13, ipadx=15, pady=10)
 date_list = tuple(df.固定繳費日)
 #顯示今天要繳房租的戶名
 if d.day in date_list:
+    print(date_list.count(d.day))
     today_count = date_list.count(d.day)
     today_count_index = []
     for j in range(18):
