@@ -265,10 +265,11 @@ def ChooseRoom():
         title9_label = tk.Label(window, text='總租金(含電費)：', bg="white", fg="black", font=fontStyle1)
         title9_label.grid(column=1, row=11, ipadx=5, pady=5)
         try:
-            inf9_label = tk.Label(window, text=str(int(list(df2.總房租)[roomindex])) + '元', bg="white",
+            inf9_label = tk.Label(window, text=str(int(float(df2.loc[roomindex, '總房租']))) + '元', bg="white",
                                   fg='black', font=fontStyle1)
+            
         except:
-            inf9_label = tk.Label(window, text=str(list(df2.總房租)[roomindex]), bg="white",
+            inf9_label = tk.Label(window, text=str(df2.loc[roomindex, '總房租']), bg="white",
                                   fg="red", font=fontStyle1)
         inf9_label.grid(column=2, row=11, ipadx=5, pady=5, sticky='W')
 
