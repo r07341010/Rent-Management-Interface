@@ -78,6 +78,10 @@ def ChooseRoom():
             else:
                 pass
             
+            # 更新 entry
+            previous_entry.delete(0, 'end')
+            month_entry.delete(0, 'end')
+            
             # 介面顯示結果
             result_label.configure(text=result)
             # automatically copy the output
@@ -105,6 +109,15 @@ def ChooseRoom():
             inf5_label.configure(text=str(int(df.loc[roomindex, '使用租金']))+'元')
             inf6_label.configure(text=str(int(df.loc[roomindex, '停車費用']))+'元')
             inf7_label.configure(text=str(int(df.loc[roomindex, '加人費用']))+'元')
+            
+            # 更新 entry
+            name_entry.delete(0, 'end')
+            phone_entry.delete(0, 'end')
+            id_entry.delete(0, 'end')
+            payday_entry.delete(0, 'end')
+            rent_entry.delete(0, 'end')
+            parking_entry.delete(0, 'end')
+            add_entry.delete(0, 'end')
             
             # 更改後端
             tmpdf = pd.DataFrame(df)
