@@ -28,7 +28,7 @@ def Date(label, win):  # 這個函式首頁也可以用
         top.destroy()
     top = tk.Toplevel(win)
     top.title('')
-    cal = Calendar(top, selectmode='day', year=2020, month=12, day=25)
+    cal = Calendar(top, selectmode='day', year=int(d.year), month=int(d.month), day=int(d.day))
     cal.pack(fill="both", expand=True)
     ttk.Button(top, text="選取", command=ChooseDate).pack()
 
@@ -451,7 +451,7 @@ gui1title1_label.grid(column=1, row=5, ipadx=15, pady=5, sticky='W')
 room_label = tk.Label(gui1, text='選擇房號：', bg="white", fg="black", font=fontStyle2)
 room_label.grid(column=2, row=8, ipadx=15, pady=5)
 
-room_choice = ttk.Combobox(gui1, width=10)
+room_choice = ttk.Combobox(gui1, width=12)
 room_choice['value'] = tuple(df.房別)
 room_choice.grid(column=3, row=8, ipadx=5, pady=5)
 
