@@ -241,11 +241,12 @@ def ChooseRoom():
             def OK2():
                 not_window.destroy()
             
-            if df2.loc[roomindex, '總房租'] == '未計算':
+            if df2.loc[roomindex, '總房租'] == '未計算' or date_label.cget('text') == '':
                 not_window = tk.Toplevel(window)
                 not_window.title('訊息')
                 not_window.configure(background='white')
-                not_label = tk.Label(not_window, text='房租尚未計算!', bg='white', font=fontStyle2)
+                not_label = tk.Label(not_window, text='總租金尚未計算'
+                                     if date_label.cget('text') != '' else '請選擇日期', bg='white', font=fontStyle2)
                 not_label.grid(column=0, row=0, ipadx=5, pady=5)
 
                 ok2btt = ttk.Button(not_window, text="確認", width=8, command=OK2)
