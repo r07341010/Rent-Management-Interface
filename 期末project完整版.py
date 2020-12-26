@@ -5,7 +5,7 @@ import pandas as pd
 import datetime
 from tkcalendar import Calendar
 
-calculate_file_path = 'C:\\Users\\johnc\\Desktop\\房租計算表.csv'
+calculate_file_path = 'C:\\Users\\johnc\\Desktop\\\房租計算表.csv'
 calculate_file_path2 = 'C:\\Users\\johnc\\Desktop\\收租明細表.csv'
 
 df = pd.read_csv(calculate_file_path, encoding='utf-8')
@@ -26,6 +26,7 @@ def Date(label, win):  # 這個函式首頁也可以用
         label.configure(text=str(cal.selection_get()).replace('-', '/'))
         top.destroy()
     top = tk.Toplevel(win)
+    top.title('')
     cal = Calendar(top, selectmode='day', year=2020, month=12, day=25)
     cal.pack(fill="both", expand=True)
     ttk.Button(top, text="選取", command=ChooseDate).pack()
@@ -512,6 +513,7 @@ else:
     no_rent = tk.Label(gui1, text='沒有待收房租', bg="white", fg="black", font=fontStyle2)
     no_rent.grid(column=3, row=today_pay_buttom, ipadx=15, pady=5, columnspan=2)
     tomorrow_pay_buttom = today_pay_buttom + 5 * tomorrow_count
+
 # 顯示後天要繳房租的戶名
 tomorrow2_count = date_list.count(tomorrow2)
 if tomorrow2 in date_list:
