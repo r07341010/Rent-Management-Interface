@@ -3,6 +3,7 @@ from tkinter import ttk  # 导入ttk模块，因为下拉菜单控件在ttk中
 import tkinter.font as tkFont
 import pandas as pd
 import datetime
+from pyperclip import copy
 from tkcalendar import Calendar
 
 calculate_file_path = 'C:\\Users\\johnc\\Desktop\\\房租計算表.csv'
@@ -115,14 +116,8 @@ def ChooseRoom():
                 okbtt.grid(column=5, row=5, ipadx=5, pady=5, sticky='W')
                 
                 # automatically copy the output
-                r = tk.Tk()
-                r.withdraw()
-                r.clipboard_clear()
-                r.clipboard_append(result)
-                r.destroy()
-            
-        
-        
+                copy(result)
+
         def ChangeRent():
             global df
             def ChangeRent_inside():
@@ -239,9 +234,6 @@ def ChooseRoom():
             # 按鈕
             changebtt = ttk.Button(gui_change_rent, text="更改資料",command=ChangeRent_inside, width=10)
             changebtt.grid(column=2, row=20, ipadx=10)#, pady=5)
-            
-            
-            ##
             
         def ConfirmPay():
             global df2
