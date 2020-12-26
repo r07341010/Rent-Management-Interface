@@ -350,19 +350,19 @@ def ChooseRoom():
         # 使用租金
         title5_label = tk.Label(window, text='使用租金：', bg="white", fg="black", font=fontStyle1)
         title5_label.grid(column=1, row=8, ipadx=5, pady=5)
-        inf5_label = tk.Label(window, text=str(list(df.使用租金)[roomindex]) + '元', bg="white", fg="black", font=fontStyle1)
+        inf5_label = tk.Label(window, text=str(int(list(df.使用租金)[roomindex])) + '元', bg="white", fg="black", font=fontStyle1)
         inf5_label.grid(column=2, row=8, ipadx=5, pady=5, sticky='W')
 
         # 停車費用
         title6_label = tk.Label(window, text='停車費用：', bg="white", fg="black", font=fontStyle1)
         title6_label.grid(column=1, row=9, ipadx=5, pady=5)
-        inf6_label = tk.Label(window, text=str(list(df.停車費用)[roomindex]) + '元', bg="white", fg="black", font=fontStyle1)
+        inf6_label = tk.Label(window, text=str(int(list(df.停車費用)[roomindex])) + '元', bg="white", fg="black", font=fontStyle1)
         inf6_label.grid(column=2, row=9, ipadx=5, pady=5, sticky='W')
 
         # 加人費用
         title7_label = tk.Label(window, text='加人費用：', bg="white", fg="black", font=fontStyle1)
         title7_label.grid(column=1, row=10, ipadx=5, pady=5)
-        inf7_label = tk.Label(window, text=str(list(df.加人費用)[roomindex]) + '元', bg="white", fg="black", font=fontStyle1)
+        inf7_label = tk.Label(window, text=str(int(list(df.加人費用)[roomindex])) + '元', bg="white", fg="black", font=fontStyle1)
         inf7_label.grid(column=2, row=10, ipadx=5, pady=5, sticky='W')
 
         # 更改資料
