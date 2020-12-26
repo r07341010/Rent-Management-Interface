@@ -26,6 +26,16 @@ gui1.title('介面1')
 gui1.configure(background='white')
 
 # 確定房號
+
+def Date(label, win):  # 這個函式首頁也可以用
+    def ChooseDate():
+        label.configure(text=str(cal.selection_get()).replace('-', '/'))
+        top.destroy()
+    top = tk.Toplevel(win)
+    cal = Calendar(top, selectmode='day', year=2020, month=12, day=25)
+    cal.pack(fill="both", expand=True)
+    ttk.Button(top, text="選取", command=ChooseDate).pack()
+
 def ChooseRoom():
     roomindex = room_choice.current()
     if roomindex != -1:
@@ -304,15 +314,6 @@ def ChooseRoom():
             tmpdf2.to_csv(calculate_file_path2, encoding='utf-8-sig', index=False)
             df2 = pd.read_csv(calculate_file_path2, encoding='utf-8')
 
-        def Date():  # 這個函式首頁也可以用
-            def ChooseDate():
-                date_label.configure(text=str(cal.selection_get()).replace('-', '/'))
-                top.destroy()
-            top = tk.Toplevel(window)
-            cal = Calendar(top, selectmode='day', year=2020, month=12, day=25)
-            cal.pack(fill="both", expand=True)
-            ttk.Button(top, text="選取", command=ChooseDate).pack()
-
         list_53 = [0,1,2,3,4,5,6,7,8,9,10,11,12]
         room_list = tuple(df.房別)
 
@@ -427,7 +428,7 @@ def ChooseRoom():
         header2_label.grid(column=1, row=18, ipadx=5, pady=5, sticky='W')
         
         # 選取日期
-        datebtt = ttk.Button(window, text="選取日期", width=8, command=Date)
+        datebtt = ttk.Button(window, text="選取日期", width=8, command=lambda: Date(date_label, window))
         datebtt.grid(column=1, row=19, ipadx=5, pady=5)
         global date_label
         date_label = tk.Label(window, text='', bg="white", fg="black", font=fontStyle1)
