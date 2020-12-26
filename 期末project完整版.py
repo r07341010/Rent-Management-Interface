@@ -309,7 +309,7 @@ def ChooseRoom():
         roomindex = 18  # 之後改成前一個介面選的房號'''
 
         '''房客資料'''
-        title_label = tk.Label(window, text=str(df.loc[roomindex, '房別']) + '房客資料', bg="white", fg="grey", font=fontStyle2)
+        title_label = tk.Label(window, text=str(df.loc[roomindex, '房別']) + '房客資料', bg="white", fg="#555555", font=fontStyle2)
         title_label.grid(column=1, row=3, ipadx=5, pady=5, sticky='W', columnspan=2)
 
         # 姓名
@@ -382,7 +382,7 @@ def ChooseRoom():
 
         '''計算房租介面'''
         # 介面名稱
-        header_label = tk.Label(window, text='計算總房租', bg="white", fg="grey", font=fontStyle2)
+        header_label = tk.Label(window, text='計算總房租', bg="white", fg="#555555", font=fontStyle2)
         header_label.grid(column=1, row=13, ipadx=5, pady=5, sticky='W')
         
         # 選取月份
@@ -412,7 +412,7 @@ def ChooseRoom():
         calculate_btn.grid(column=3, row=16, ipadx=5, pady=5)
 
         '''確認繳費'''
-        header2_label = tk.Label(window, text='繳費確認', bg="white", fg="grey", font=fontStyle2)
+        header2_label = tk.Label(window, text='繳費確認', bg="white", fg="#555555", font=fontStyle2)
         header2_label.grid(column=1, row=18, ipadx=5, pady=5, sticky='W')
         
         # 選取日期
@@ -428,7 +428,7 @@ def ChooseRoom():
         
         '''前五筆交易資料'''
         # 介面名稱
-        header2_label = tk.Label(window, text='過去五筆交易紀錄', bg="white", fg="grey", font=fontStyle2)
+        header2_label = tk.Label(window, text='過去五筆交易紀錄', bg="white", fg="#555555", font=fontStyle2)
         header2_label.grid(column=7, row=3, ipadx=5, pady=5, sticky='W', columnspan=2)
 
         # 交易紀錄
@@ -453,7 +453,7 @@ tomorrow = (d + datetime.timedelta(days=1)).day
 tomorrow2 = (d + datetime.timedelta(days=2)).day
 
 # 標題
-gui1title1_label = tk.Label(gui1, text='選擇房號', bg="white", fg="grey", font=fontStyle3)
+gui1title1_label = tk.Label(gui1, text='選擇房號', bg="white", fg="#555555", font=fontStyle3)
 gui1title1_label.grid(column=1, row=5, ipadx=15, pady=5, sticky='W')
 
 room_label = tk.Label(gui1, text='選擇房號：', bg="white", fg="black", font=fontStyle2)
@@ -468,7 +468,7 @@ action = ttk.Button(gui1, text="確認", width=5, command=ChooseRoom)
 action.grid(column=4, row=8, ipadx=15, pady=5)
 
 ##我從這裡開始打
-header_label = tk.Label(gui1, text='待收房租', bg="white", fg="gray", font=fontStyle3)
+header_label = tk.Label(gui1, text='待收房租', bg="white", fg="#555555", font=fontStyle3)
 header_label.grid(column=1, row=13, ipadx=15, pady=5, sticky='W')
 
 date_list = tuple(df.固定繳費日)
