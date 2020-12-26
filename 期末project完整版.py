@@ -46,6 +46,7 @@ def ChooseRoom():
             global date
             
             def OK():
+                copy(result_label.cget('text'))
                 result_window.destroy()
             
             if mouth_choice.current() != -1:
@@ -71,9 +72,8 @@ def ChooseRoom():
                     pay = rent + power*5 + other_charge
                     head = '親愛的' + df.loc[roomindex, '房別'] + '房客您好，本期({:>})的房租費用'.format(time)
                     total = '總計{:<8}元，其中包含：\n'.format(format(pay,',')) # 千分位處理
-                    rent_show = '1.租金{:<8}元\n'.format(format(rent,',')) # 千分位處理
+                    rent_show = '1.租金{:<8}元\n'.format(format(float(rent),',')) # 千分位處理
                     power = '2.電費：本月耗電 {:<.1f} 度，小計 {:<.1f} 元。(上個月為 {:<.1f} 度電，本月為{:<.1f} 度電。)\n'.format(power,power*5,previous,month)
-                    # print the output
                     result = head + total + rent_show + power + other
                 else: # 無其他費用：停車費或加人費用
                     # calculate the ouput content
@@ -111,17 +111,13 @@ def ChooseRoom():
                 result_label = tk.Label(result_window, text=result, bg='white', font=fontStyle1)
                 result_label.grid(column=0, row=0, ipadx=5, pady=5, rowspan=5, columnspan=10, sticky='W')
                 
-                # 好 按鈕
-                okbtt = ttk.Button(result_window, text="確認", width=8, command=OK)
+                # 按鈕
+                okbtt = ttk.Button(result_window, text="複製此段文字", width=10, command=OK)
                 okbtt.grid(column=5, row=5, ipadx=5, pady=5, sticky='W')
-                
-                # automatically copy the output
-                copy(result)
 
         def ChangeRent():
             global df
             def ChangeRent_inside():
-                print('here')
                 global df
                 df.loc[roomindex, '使用租金'] = float(rent_entry_change.get()) if rent_entry_change.get() != '' else df.loc[roomindex, '使用租金']
                 df.loc[roomindex, '停車費用'] = float(parking_entry_change.get()) if parking_entry_change.get() != '' else df.loc[roomindex, '停車費用']
@@ -130,7 +126,6 @@ def ChooseRoom():
                 df.loc[roomindex, '聯絡電話'] = str(phone_entry_change.get()) if phone_entry_change.get() != '' else df.loc[roomindex, '聯絡電話']
                 df.loc[roomindex, '姓名'] = str(name_entry_change.get()) if name_entry_change.get() != '' else df.loc[roomindex, '姓名']
                 df.loc[roomindex, '身分證字號'] = str(id_entry_change.get()) if id_entry_change.get() != '' else df.loc[roomindex, '身分證字號']
-                
                 # 更改房客資料
                 inf1_label_change.configure(text=df.loc[roomindex, '姓名'])
                 inf1_label.configure(text=df.loc[roomindex, '姓名'])
@@ -305,9 +300,6 @@ def ChooseRoom():
         list_53 = [0,1,2,3,4,5,6,7,8,9,10,11,12]
         room_list = tuple(df.房別)
 
-        '''global roomindex
-        roomindex = 18  # 之後改成前一個介面選的房號'''
-
         '''房客資料'''
         title_label = tk.Label(window, text=str(df.loc[roomindex, '房別']) + '房客資料', bg="white", fg="#555555", font=fontStyle2)
         title_label.grid(column=1, row=3, ipadx=5, pady=5, sticky='W', columnspan=2)
@@ -356,7 +348,7 @@ def ChooseRoom():
 
         # 更改資料
         changebtt1 = ttk.Button(window, text="更改資料", command=ChangeRent, width=7)
-        changebtt1.grid(column=2, row=3, ipadx=5, pady=5, sticky='W')
+        changebtt1.grid(column=3, row=4, ipadx=5, pady=5, sticky='W')
 
         # 繳費狀態
         title8_label = tk.Label(window, text='繳費狀態：', bg="white", fg="black", font=fontStyle1)
