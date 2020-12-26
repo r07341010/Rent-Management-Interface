@@ -488,7 +488,7 @@ if d.day in date_list:
 else:
     no_rent = tk.Label(gui1, text='沒有待收房租', bg="white", fg="black", font=fontStyle2)
     no_rent.grid(column=3, row=18, ipadx=15, pady=5, columnspan=2)
-    today_pay_buttom = 18 + 5 * today_count
+    today_pay_buttom = 18 + 5
 
 # 顯示明天要繳房租的戶名
 tomorrow_count = date_list.count(tomorrow)
@@ -505,7 +505,7 @@ if tomorrow in date_list:
 else:
     no_rent = tk.Label(gui1, text='沒有待收房租', bg="white", fg="black", font=fontStyle2)
     no_rent.grid(column=3, row=today_pay_buttom, ipadx=15, pady=5, columnspan=2)
-    tomorrow_pay_buttom = today_pay_buttom + 5 * tomorrow_count
+    tomorrow_pay_buttom = today_pay_buttom + 5
 
 # 顯示後天要繳房租的戶名
 tomorrow2_count = date_list.count(tomorrow2)
