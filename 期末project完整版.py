@@ -80,7 +80,7 @@ def ChooseRoom():
                     pay = rent + power*5
                     head = '親愛的' + df.loc[roomindex, '房別'] + '房客您好，本期({:>})的房租費用'.format(time)
                     total = '總計{:<8}元，其中包含：\n'.format(format(pay,',')) # 千分位處理
-                    rent_show = '1.租金{:<8}元\n'.format(format(rent,',')) # 千分位處理
+                    rent_show = '1.租金{:<8}元\n'.format(format(float(rent),',')) # 千分位處理
                     power = '2.電費：本月耗電 {:<.1f} 度，小計 {:<.1f} 元。(上個月為 {:<.1f} 度電，本月為{:<.1f} 度電。)\n'.format(power,power*5,previous,month)
                     # print the output
                     result = head + total + rent_show + power
